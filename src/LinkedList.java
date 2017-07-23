@@ -10,7 +10,11 @@ public class LinkedList implements LinkedListInterface {
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		if (size == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -32,10 +36,15 @@ public class LinkedList implements LinkedListInterface {
 	public void addLast(Object data) {
 		// TODO Auto-generated method stub
 		Node temp = start;
-		while (temp.getNext() != null) {
-			temp = temp.getNext();
+		if (temp == null) {
+			start = new Node(data, null);
+		} else {
+			while (temp.getNext() != null) {
+				temp = temp.getNext();
+			}
+			temp.setNext(new Node(data, null));
 		}
-		temp.setNext(new Node(data, null));
+		
 		size++;
 	}
 
@@ -43,11 +52,15 @@ public class LinkedList implements LinkedListInterface {
 	public void add(Object data, int index) {
 		// TODO Auto-generated method stub
 		Node temp = start;
-		for (int i = 0; i < index - 1; i++) {
-			temp = temp.getNext();
-		}
+		if (temp == null) {
+			start = new Node(data, null);
+		} else {
+			for (int i = 0; i < index - 1; i++) {
+				temp = temp.getNext();
+			}
 
-		temp.setNext(new Node(data, temp.getNext()));
+			temp.setNext(new Node(data, temp.getNext()));
+		}
 		size++;
 
 	}
@@ -62,6 +75,22 @@ public class LinkedList implements LinkedListInterface {
 		temp.setNext(temp.getNext().getNext());
 		size++;
 
+	}
+
+	@Override
+	public String toString() {
+		Node temp = start;
+		String nodeString = "";
+		if (start == null) {
+			nodeString = null;
+		} else {
+			while (temp != null) {
+				nodeString = nodeString + (String) temp.getData();
+				temp = temp.getNext(); 
+			} 
+		}
+//		System.out.println(nodeString);
+		return nodeString;
 	}
 
 }
